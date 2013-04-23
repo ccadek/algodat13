@@ -56,8 +56,37 @@ public class Sorter {
 	 * @return
 	 */
 	private  int partition(DoublyLinkedList in, int l, int r, int x){
-		
+		int i = l-1;
+		int j = r;
+		ListElement left = getNode(in.first, i);
+		ListElement right = getNode(in.first, r);
+		do{
+			do{
+				i+=1;
+			}while(left.getKey() >= x);
+			do{
+				j-=1;
+			}while(j <= i || right.getKey() <= x);
+			if(i < j){
+				//Tausche left und right
+			}
+		} while(i >= j);
+		//A[i] mit A[r] tauschen
+		//return i; == Pivot-element
 		return -1;
+	}
+	
+	/**
+	 * Ausgehend vom first-Element wird das Element an der index-ten Stelle geholt
+	 * @param le
+	 * @param index
+	 * @return
+	 */
+	private ListElement getNode(ListElement le, int index){
+		if(index > 1){
+			getNode(le.next, index-1);
+		}
+		return le;
 	}
 
 }

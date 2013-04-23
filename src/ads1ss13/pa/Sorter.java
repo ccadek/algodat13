@@ -25,16 +25,22 @@ public class Sorter {
 	 * @return Sortiterte Eingabefolge
 	 */
 	public DoublyLinkedList quicksort(DoublyLinkedList in, int numOfElements) {
-		/*
-		 * Hier ist die richtige Stelle f&uuml;r Ihre Implementierung.
-		 */
+		//quicksort(in, 1, numOfElements);
 		return null;
 	}
 	private DoublyLinkedList quicksort(DoublyLinkedList in, int l, int r){
 		int x;	//Pivot-Element
 		int p;	//Pivot-Stelle
+		
 		if(l < r){
-			x = in.first.prev.getKey();	//Sobald Pivot in die Mitte rutscht, falsch!!
+			
+			int i = l;
+			ListElement tmp = in.first;
+			while(i <= r){	// Auf das Pivot-Element gehen
+				tmp = tmp.next;
+			}
+			
+			x = tmp.getKey();
 			p = partition(in, l, r, x);
 			quicksort(in, l, p-1);
 			quicksort(in, p+1, r);

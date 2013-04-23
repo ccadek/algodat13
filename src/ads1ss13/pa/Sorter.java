@@ -25,14 +25,13 @@ public class Sorter {
 	 * @return Sortiterte Eingabefolge
 	 */
 	public DoublyLinkedList quicksort(DoublyLinkedList in, int numOfElements) {
-		/*
-		 * Hier ist die richtige Stelle f&uuml;r Ihre Implementierung.
-		 */
+		//quicksort(in, 1, numOfElements);
 		return null;
 	}
 	private DoublyLinkedList quicksort(DoublyLinkedList in, int l, int r){
 		int x;	//Pivot-Element
 		int p;	//Pivot-Stelle
+		
 		if(l < r){
 			
 			int i = l;

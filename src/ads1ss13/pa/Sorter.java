@@ -59,13 +59,15 @@ public class Sorter {
 		int i = l-1;
 		int j = r;
 		ListElement left = getNode(in.first, i);
-		ListElement right = getNode(in.first, r);
+		ListElement right = getNode(in.first, j);
 		do{
 			do{
 				i+=1;
+				//left.next
 			}while(left.getKey() >= x);
 			do{
 				j-=1;
+				//right.prev
 			}while(j <= i || right.getKey() <= x);
 			if(i < j){
 				//Tausche left und right
@@ -77,10 +79,10 @@ public class Sorter {
 	}
 	
 	/**
-	 * Ausgehend vom first-Element wird das Element an der index-ten Stelle geholt
-	 * @param le
-	 * @param index
-	 * @return
+	 * Ausgehend vom first-Element wird das Element geholt
+	 * @param le = Element, von dem ausgegangen wird
+	 * @param index 
+	 * @return Element
 	 */
 	private ListElement getNode(ListElement le, int index){
 		if(index > 1){

@@ -25,7 +25,7 @@ public class Sorter {
 	 * @return Sortiterte Eingabefolge
 	 */
 	public DoublyLinkedList quicksort(DoublyLinkedList in, int numOfElements) {
-		//quicksort(in, 1, numOfElements);
+		quicksort(in, 1, numOfElements);
 		return null;
 	}
 	private DoublyLinkedList quicksort(DoublyLinkedList in, int l, int r){
@@ -42,8 +42,11 @@ public class Sorter {
 			
 			x = tmp.getKey();
 			p = partition(in, l, r, x);
+			
 			quicksort(in, l, p-1);
+			
 			quicksort(in, p+1, r);
+			
 		}
 		return null; //Auf in setzen !!!!
 	}
@@ -111,5 +114,4 @@ public class Sorter {
 		}
 		return le;
 	}
-
 }

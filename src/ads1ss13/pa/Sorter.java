@@ -60,23 +60,44 @@ public class Sorter {
 		int j = r;
 		ListElement left = getNode(in.first, i);
 		ListElement right = getNode(in.first, j);
+		ListElement end = right;
 		do{
 			do{
 				i+=1;
-				//left.next
+				left = left.next;
 			}while(left.getKey() >= x);
 			do{
 				j-=1;
-				//right.prev
+				right = right.prev;
 			}while(j <= i || right.getKey() <= x);
 			if(i < j){
 				//Tausche left und right
+				/*
+				 * ListElement rn = right.next;
+				 * ListElement rp = right.prev;
+				 * ListElement lp = left.prev;
+				 * ListElement ln = left.next;
+				 * left.next = rn;
+				 * left.prev = rp;
+				 * right.next = ln;
+				 * right.prev = lp;
+				 */
 			}
 		} while(i >= j);
 		//A[i] mit A[r] tauschen
-		//return i; == Pivot-element
-		return -1;
+		/*
+		 * ListElement rn = end.next;
+		 * ListElement rp = end.prev;
+		 * ListElement lp = left.prev;
+		 * ListElement ln = left.next;
+		 * left.next = rn;
+		 * left.prev = rp;
+		 * end.next = ln;
+		 * end.prev = lp;
+		 */		
+		return i;	// Pivot-Element
 	}
+	
 	
 	/**
 	 * Ausgehend vom first-Element wird das Element geholt

@@ -40,7 +40,7 @@ public class Sorter {
 				tmp = tmp.next;
 			}
 			
-			x = tmp.getKey();
+			//x = tmp.getKey(); getKey ändert sich nicht durch das sortieren!
 			p = partition(in, l, r, x);
 			
 			quicksort(in, l, p-1);
@@ -58,7 +58,7 @@ public class Sorter {
 	 * @param x = Pivot-Wert
 	 * @return
 	 */
-	private  int partition(DoublyLinkedList in, int l, int r, int x){
+	private int partition(DoublyLinkedList in, int l, int r, int x){
 		int i = l-1;
 		int j = r;
 		ListElement left = getNode(in.first, i);
@@ -68,11 +68,11 @@ public class Sorter {
 			do{
 				i+=1;
 				left = left.next;
-			}while(left.getKey() >= x);
+			}while(left.getKey() < x); //oder >=
 			do{
 				j-=1;
 				right = right.prev;
-			}while(j <= i || right.getKey() <= x);
+			}while(j > i || right.getKey() > x); //oder <=
 			if(i < j){
 				//Tausche left und right
 				/*

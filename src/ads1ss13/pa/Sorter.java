@@ -28,6 +28,8 @@ public class Sorter {
 		quicksort(in, 1, numOfElements);
 		return null;
 	}
+	
+	
 	private DoublyLinkedList quicksort(DoublyLinkedList in, int l, int r){
 		int x;	//Pivot-Element
 		int p;	//Pivot-Stelle
@@ -35,9 +37,10 @@ public class Sorter {
 		if(l < r){
 			
 			int i = l;
-			ListElement tmp = in.first;
+			//Fehler, rechte Partition fangt nicht vom 1. element an!
+			//ListElement tmp = in.first;
 			while(i <= r){	// Auf das Pivot-Element gehen
-				tmp = tmp.next;
+				//tmp = tmp.next;
 			}
 			
 			//x = tmp.getKey(); getKey ändert sich nicht durch das sortieren!
@@ -76,7 +79,7 @@ public class Sorter {
 			if(i < j){
 				//Tausche left und right
 				/*
-				 * ListElement rn = right.next;
+				 * <ListElement rn = right.next;
 				 * ListElement rp = right.prev;
 				 * ListElement lp = left.prev;
 				 * ListElement ln = left.next;

@@ -53,6 +53,8 @@ public class Sorter {
 		}
 		return null; //Auf in setzen !!!!
 	}
+	
+
 	/**
 	 * 
 	 * @param in
@@ -103,6 +105,85 @@ public class Sorter {
 		 */		
 		return i;	// Pivot-Element
 	}
+	
+//--------------------------------------------------------------------------------------
+//	Neuer Versuch "rekursiver" Es werden nur ListElemente übergeben!!!!	
+	
+	private DoublyLinkedList quicksort(DoublyLinkedList in, ListElement l, ListElement r){
+		int x;	//Pivot-Element
+		int p;	//Pivot-Stelle
+		
+		if(l < r){
+			
+			//int i = l;
+			//Fehler, rechte Partition fangt nicht vom 1. element an!
+			//ListElement tmp = in.first;
+			while(i <= r){	// Auf das Pivot-Element gehen
+				//tmp = tmp.next;
+			}
+			
+			p = partition(in, l, r, x);
+			
+			quicksort(in, l, r.prev);
+			
+			quicksort(in, p.next, r);
+			
+		}
+		return null; //Auf in setzen !!!!
+	}
+	
+	/**
+	 * 
+	 * @param in
+	 * @param l = Linke Grenze
+	 * @param r = Rechte Grenze
+	 * @param x = Pivot-Wert
+	 * @return
+	 */
+	private int partition(DoublyLinkedList in, int l, int r, int x){
+		int i = l-1;
+		int j = r;
+		ListElement left = getNode(in.first, i);
+		ListElement right = getNode(in.first, j);
+		ListElement end = right;
+		do{
+			do{
+				i+=1;
+				left = left.next;
+			}while(left.getKey() < x); //oder >=
+			do{
+				j-=1;
+				right = right.prev;
+			}while(j > i || right.getKey() > x); //oder <=
+			if(i < j){
+				//Tausche left und right
+				/*
+				 * <ListElement rn = right.next;
+				 * ListElement rp = right.prev;
+				 * ListElement lp = left.prev;
+				 * ListElement ln = left.next;
+				 * left.next = rn;
+				 * left.prev = rp;
+				 * right.next = ln;
+				 * right.prev = lp;
+				 */
+			}
+		} while(i >= j);
+		//A[i] mit A[r] tauschen
+		/*
+		 * ListElement rn = end.next;
+		 * ListElement rp = end.prev;
+		 * ListElement lp = left.prev;
+		 * ListElement ln = left.next;
+		 * left.next = rn;
+		 * left.prev = rp;
+		 * end.next = ln;
+		 * end.prev = lp;
+		 */		
+		return i;	// Pivot-Element
+	}
+	
+	
 	
 	
 	/**

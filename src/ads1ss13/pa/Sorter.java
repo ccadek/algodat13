@@ -25,108 +25,22 @@ public class Sorter {
 	 * @return Sortiterte Eingabefolge
 	 */
 	public DoublyLinkedList quicksort(DoublyLinkedList in, int numOfElements) {
-		quicksort(in, 1, numOfElements);
-		return null;
-	}
-	
-	
-	private DoublyLinkedList quicksort(DoublyLinkedList in, int l, int r){
-		int x;	//Pivot-Element
-		int p;	//Pivot-Stelle
 		
-		if(l < r){
-			
-			int i = l;
-			//Fehler, rechte Partition fangt nicht vom 1. element an!
-			//ListElement tmp = in.first;
-			while(i <= r){	// Auf das Pivot-Element gehen
-				//tmp = tmp.next;
-			}
-			
-			//x = tmp.getKey(); getKey ändert sich nicht durch das sortieren!
-			p = partition(in, l, r, x);
-			
-			quicksort(in, l, p-1);
-			
-			quicksort(in, p+1, r);
-			
-		}
-		return null; //Auf in setzen !!!!
+		return quicksort(in, 1, numOfElements, in.first, in.first.prev);
 	}
 	
-
-	/**
-	 * 
-	 * @param in
-	 * @param l = Linke Grenze
-	 * @param r = Rechte Grenze
-	 * @param x = Pivot-Wert
-	 * @return
-	 */
-	private int partition(DoublyLinkedList in, int l, int r, int x){
-		int i = l-1;
-		int j = r;
-		ListElement left = getNode(in.first, i);
-		ListElement right = getNode(in.first, j);
-		ListElement end = right;
-		do{
-			do{
-				i+=1;
-				left = left.next;
-			}while(left.getKey() < x); //oder >=
-			do{
-				j-=1;
-				right = right.prev;
-			}while(j > i || right.getKey() > x); //oder <=
-			if(i < j){
-				//Tausche left und right
-				/*
-				 * <ListElement rn = right.next;
-				 * ListElement rp = right.prev;
-				 * ListElement lp = left.prev;
-				 * ListElement ln = left.next;
-				 * left.next = rn;
-				 * left.prev = rp;
-				 * right.next = ln;
-				 * right.prev = lp;
-				 */
-			}
-		} while(i >= j);
-		//A[i] mit A[r] tauschen
-		/*
-		 * ListElement rn = end.next;
-		 * ListElement rp = end.prev;
-		 * ListElement lp = left.prev;
-		 * ListElement ln = left.next;
-		 * left.next = rn;
-		 * left.prev = rp;
-		 * end.next = ln;
-		 * end.prev = lp;
-		 */		
-		return i;	// Pivot-Element
-	}
-	
-//--------------------------------------------------------------------------------------
-//	Neuer Versuch "rekursiver" Es werden nur ListElemente übergeben!!!!	
-	
-	private DoublyLinkedList quicksort(DoublyLinkedList in, ListElement l, ListElement r){
-		int x;	//Pivot-Element
-		int p;	//Pivot-Stelle
+	private DoublyLinkedList quicksort(DoublyLinkedList in,int l, int r, ListElement left, ListElement right){
 		
-		if(l < r){
-			
-			//int i = l;
-			//Fehler, rechte Partition fangt nicht vom 1. element an!
-			//ListElement tmp = in.first;
-			while(i <= r){	// Auf das Pivot-Element gehen
-				//tmp = tmp.next;
-			}
+		ListElement p;	//Pivot-Stelle
+		
+		if(l < r){			
+			ListElement x = in.first.prev;
 			
 			p = partition(in, l, r, x);
 			
-			quicksort(in, l, r.prev);
+			quicksort(in,l, getNode(in, p)-1, left, p.prev);
 			
-			quicksort(in, p.next, r);
+			quicksort(in, getNode(in, p)+1, l, p.next, right);
 			
 		}
 		return null; //Auf in setzen !!!!
@@ -140,7 +54,7 @@ public class Sorter {
 	 * @param x = Pivot-Wert
 	 * @return
 	 */
-	private int partition(DoublyLinkedList in, int l, int r, int x){
+	private ListElement partition(DoublyLinkedList in, int l, int r, ListElement x){
 		int i = l-1;
 		int j = r;
 		ListElement left = getNode(in.first, i);
@@ -150,37 +64,46 @@ public class Sorter {
 			do{
 				i+=1;
 				left = left.next;
-			}while(left.getKey() < x); //oder >=
+			}while(left.getKey() < x.getKey()); //oder >=
 			do{
 				j-=1;
 				right = right.prev;
-			}while(j > i || right.getKey() > x); //oder <=
+			}while(j > i || right.getKey() > x.getKey()); //oder <=
 			if(i < j){
 				//Tausche left und right
-				/*
-				 * <ListElement rn = right.next;
-				 * ListElement rp = right.prev;
-				 * ListElement lp = left.prev;
-				 * ListElement ln = left.next;
-				 * left.next = rn;
-				 * left.prev = rp;
-				 * right.next = ln;
-				 * right.prev = lp;
-				 */
+				if(left == in.first) right = in.first;
+				
+				ListElement rn = right.next;
+				ListElement rp = right.prev;
+				ListElement lp = left.prev;
+				ListElement ln = left.next;
+				left.next = rn;
+				left.prev = rp;
+				rn.prev = left;
+				rp.next = left;
+				right.next = ln;
+				right.prev = lp;
+				ln.prev = right;
+				lp.next = right;
+				 
 			}
 		} while(i >= j);
 		//A[i] mit A[r] tauschen
-		/*
-		 * ListElement rn = end.next;
-		 * ListElement rp = end.prev;
-		 * ListElement lp = left.prev;
-		 * ListElement ln = left.next;
-		 * left.next = rn;
-		 * left.prev = rp;
-		 * end.next = ln;
-		 * end.prev = lp;
-		 */		
-		return i;	// Pivot-Element
+		if(left == in.first) right = in.first;
+		ListElement rn = end.next;
+		ListElement rp = end.prev;
+		ListElement lp = left.prev;
+		ListElement ln = left.next;
+		left.next = rn;
+		left.prev = rp;
+		rn.prev = left;
+		rp.next = left;
+		end.next = ln;
+		end.prev = lp;
+		ln.prev = end;
+		lp.next = end;
+				
+		return end;	// Pivot-Element
 	}
 	
 	
@@ -197,5 +120,18 @@ public class Sorter {
 			getNode(le.next, index-1);
 		}
 		return le;
+	}
+	private int getNode(DoublyLinkedList in, ListElement eing){
+		ListElement tmp = in.first;
+		boolean bool = false;
+		int i = 1;
+		while(!bool){
+			if(tmp == eing) bool = true;
+			else{ 
+				tmp = tmp.next;
+				i++;
+			}
+		}
+		return i;
 	}
 }

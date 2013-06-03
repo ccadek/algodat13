@@ -27,91 +27,47 @@ public class Sorter {
 	 * @return Sortiterte Eingabefolge
 	 */
 	public DoublyLinkedList quicksort(DoublyLinkedList in, int numOfElements) {
-		return quicksort(in, in.first, in.first.prev);
+		return null;
 	}
-
-	private DoublyLinkedList quicksort(DoublyLinkedList in, ListElement left, ListElement right) {
-		if (left == right) {
-			return in;
-		}
-
-		ListElement pivot = right;
-		ListElement[] grenzen = partition(in, left, right);
-
-		if (pivot != grenzen[0]) {
-			quicksort(in, grenzen[0], pivot.prev);
-		}
-		if (pivot != grenzen[1]) {
-			quicksort(in, pivot.next, grenzen[1]);
-		}
-		return in;
-	}
-
-	private void swap(DoublyLinkedList list, ListElement[] grenzen, ListElement node1, ListElement node2) {
-
-		if (grenzen[0] == node1) {
-			grenzen[0] = node2;
-			if (node1 == list.first) {
-				list.first = node2;
-			}
-		}
-		if (grenzen[1] == node2) {
-			grenzen[1] = node1;
-		}
+	
+	/**
+	 * Andere Lösung zum Sorter_lsg (der bei der Abgabe abgegeben wurde)
+	 * Hier gehe ich die Liste nur von links durch und gebe alle Elemente größer als das 
+	 * Pivot hinter das Pivot. 
+	 * Dann teile ich die Liste am Pivot und sortierte links und rechts nach dem gleichen Schema.
+	 * 
+	 * 
+	 * @param in
+	 * @param left
+	 * @param pivot
+	 * @return
+	 */
+	public DoublyLinkedList quicksort(DoublyLinkedList in, ListElement left, ListElement pivot){
 		
-		if (node1.prev == node2) { // node1 ist in.first, node2 ist pivot
-			ListElement node2Prev = node2.prev;
-			ListElement node1Next = node1.next;
+		while(left != pivot){
 			
-			node1.next = node2;
-			node2.prev = node1;
-			node2Prev.next = node1;
-			node2Prev.next.prev = node2Prev;
-			node1Next.prev = node2;
-			node1Next.prev.next = node1Next;
-		} else {
-	
-			ListElement node1Prev = node1.prev;
-			ListElement node1Next = node1.next;
-			node1.next = node2.next;
-			node1.prev = node2.prev != node1 ? node2.prev : node2;
-	
-			node2.next = node1Next != node2 ? node1Next : node1;
-			node2.prev = node1Prev;
-	
-			// pointer reparieren
-			node1.prev.next = node1;
-			node1.next.prev = node1;
-			node2.prev.next = node2;
-			node2.next.prev = node2;
 		}
+
+		return null;
+	}
+	
+	/**
+	 * Gibt alle Elemente vor dem Pivot die größer als selbiges sind nach hinten
+	 * und gibt anschließend das neue Pivot retour
+	 * 
+	 * @param in
+	 * @param left
+	 * @param pivot
+	 * @return
+	 */
+	public ListElement partition(DoublyLinkedList in, ListElement left, ListElement pivot){
+		
+		while(left != pivot && left.getKey() < pivot.getKey()){
+			left = left.next;
+		}
+		//left-element hinter pivot schieben und referenz auf left reparieren
+		
+		return pivot;
 	}
 
-	private ListElement[] partition(DoublyLinkedList list, ListElement left, ListElement pivot) {
-		ListElement[] grenzen = new ListElement[] { left, pivot };
-		ListElement right = pivot.prev;
-		do {
-			while (left.getKey() <= pivot.getKey() && left != right) {
-				left = left.next;
-			}
-
-			while (right.getKey() > pivot.getKey() && left != right) {
-				right = right.prev;
-			}
-
-			if (left.getKey() > right.getKey()) {
-				swap(list, grenzen, left, right);
-				ListElement helper = left;
-				left = right;
-				right = helper;
-			}
-
-		} while (left != right);
-
-		// pivot element tauschen
-		if (left.getKey() > pivot.getKey()) {
-			swap(list, grenzen, left, pivot);
-		}
-		return grenzen;
-	}
 }
